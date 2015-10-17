@@ -48,8 +48,8 @@ angular.module('mean.users')
       };
     }
   ])
-  .controller('RegisterCtrl', ['$rootScope', 'MeanUser',
-    function($rootScope, MeanUser) {
+  .controller('RegisterCtrl', ['$scope', '$location', '$rootScope', 'MeanUser',
+    function($scope, $location, $rootScope, MeanUser) {
       var vm = this;
 
       vm.user = {};
@@ -85,6 +85,16 @@ angular.module('mean.users')
 
       $rootScope.$on('registerfailed', function(){
         vm.registerError = MeanUser.registerError;
+      });
+
+      // There is no redirect on registration (a current bug) we must force redirect upon registration manually
+      console.log(MeanUser);
+      $scope.MeanUser = MeanUser;
+      $scope.$watch('MeanUser.loggedin', function () {
+        if (MeanUser.loggedin) {
+          console.log('home page redirect');
+          $location.path('/');
+        }
       });
     }
   ])

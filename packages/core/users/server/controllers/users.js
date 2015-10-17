@@ -149,8 +149,10 @@ module.exports = function(MeanUser) {
                     // We are sending the payload inside the token
                     var token = jwt.sign(escaped, config.secret, { expiresInMinutes: 60*5 });
                     res.json({ token: token });
+                    console.log('user sh')
                 });
                 res.status(200);
+                console.log('successful registration, redirect here to root')
             });
         },
         /**
